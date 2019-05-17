@@ -2,8 +2,10 @@
 
 ### Step 
 
+```bash
 source ~/catkin_ws_qt/devel/setup.bash
 roslaunch mpu6050_6dof imu_demo.launch
+```
 ### Step 
 ```bash
 rosrun ros_vslambook helloword
