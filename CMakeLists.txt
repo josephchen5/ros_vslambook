@@ -150,7 +150,7 @@ include_directories(
 add_executable(helloword src/helloword.cpp)
 add_executable(imageBasics src/imageBasics.cpp)
 add_executable(imu_path src/imu_path.cpp)
-
+add_executable(useGeometry src/useGeometry.cpp)
 
 
 ## Rename C++ executable without prefix
@@ -165,6 +165,7 @@ add_executable(imu_path src/imu_path.cpp)
 add_dependencies(helloword ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(imageBasics ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(imu_path ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(useGeometry ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
 ## Specify libraries to link a library or executable target against
@@ -174,7 +175,7 @@ add_dependencies(imu_path ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_
 target_link_libraries(helloword ${catkin_LIBRARIES})
 target_link_libraries(imageBasics ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
 target_link_libraries(imu_path ${catkin_LIBRARIES})
-
+target_link_libraries(useGeometry ${catkin_LIBRARIES})
 
 
 #############
