@@ -9,6 +9,11 @@ cd ~/catkin_ws_qt/src/ros_vslambook/scripts
 chmod +x goforward.py
 chmod +x draw_a_square.py
 chmod +x goincircles.py
+chmod +x timed_out_and_back.py
+chmod +x talker.py
+chmod +x odom_out_and_back.py
+chmod +x robot_tf_listener.py
+
 roslaunch turtlebot_gazebo turtlebot_world.launch world_file:=/opt/ros/kinetic/share/turtlebot_gazebo/worlds/empty.world
 roslaunch turtlebot_rviz_launchers view_robot.launch
 ```
@@ -21,5 +26,16 @@ rosrun ros_vslambook useGeometry
 rosrun ros_vslambook goforward.py
 rosrun ros_vslambook draw_a_square.py
 rosrun ros_vslambook goincircles.py
+
+rosrun ros_vslambook talker.py
+
+rosrun ros_vslambook timed_out_and_back.py
+rosrun ros_vslambook odom_out_and_back.py
+
+roslaunch ros_vslambook start_demo.launch
+
+rosrun ros_vslambook robot_tf_listener.py
+
+
 
 ```
