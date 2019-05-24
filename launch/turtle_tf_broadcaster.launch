@@ -1,0 +1,7 @@
+<launch>
+
+    <node name="turtle_tf_broadcaster" pkg="ros_vslambook" type="turtle_tf_broadcaster.py" respawn="false" output="screen" >
+      <param name="turtle" type="string" value="turtle1" />
+    </node>
+
+</launch>

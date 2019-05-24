@@ -32,11 +32,11 @@ class DrawASquare():
         rospy.on_shutdown(self.shutdown)
         
         self.cmd_vel = rospy.Publisher('cmd_vel_mux/input/navi', Twist, queue_size=10)
-     
-	# 5 HZ
+
+        #5 HZ
         r = rospy.Rate(5);
 
-	# create two different Twist() variables.  One for moving forward.  One for turning 45 degrees.
+	   # create two different Twist() variables.  One for moving forward.  One for turning 45 degrees.
 
         # let's go forward at 0.2 m/s
         move_cmd = Twist()
