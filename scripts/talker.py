@@ -7,8 +7,8 @@ from std_msgs.msg import String
 class hello_world():
     def __init__(self):
         # initiliaze
-        rospy.init_node('talker', anonymous=True)
-        self.pub = rospy.Publisher('/chatter', String, queue_size=10)
+        rospy.init_node('talker', anonymous=False)
+        self.pub = rospy.Publisher('chatter', String, queue_size=10)
 
         # How fast will we update the robot's movement?
         rate = 10  # 10hz
@@ -17,7 +17,7 @@ class hello_world():
 
         while not rospy.is_shutdown():
             hello_str = "hello world %s" % rospy.get_time()
-            rospy.loginfo(hello_str+"  ITRI_Q200")
+            rospy.loginfo("talker node say : "+hello_str)
             self.pub.publish(hello_str)
             r.sleep()
 
