@@ -28,19 +28,22 @@ class OutAndBack():
     #   設定 out_and_back 參數
 
         # Set the travel distance to 1.0 meters
-        goal_distance = 1.0
+        goal_distance = rospy.get_param("~goal_distance", 1.0)
+
         # Set the forward linear speed to 0.15 meters per second
-        linear_speed = 0.15
+        linear_speed = rospy.get_param("~linear_speed", 0.15)        # meters per second
         print("設定 前進距離為%5.2f meters，速度為%5.2f m/s" % (goal_distance,linear_speed))
 
-        # Set the rotation angle to Pi radians (180 degrees)
-        goal_angle = pi
+        # Set the rotation angle to 180 degrees
+        goal_angle = radians(rospy.get_param("~goal_angle", 180))    # degrees converted to radians
+
+
         # Set the rotation speed in radians per second
-        angular_speed = 0.5
+        angular_speed = rospy.get_param("~angular_speed", 0.5)      # radians per second
         print("設定 旋轉角度為%5.2f radians，旋轉速度為%5.2f rad/s" % (goal_angle,angular_speed))
 
         # Set the angular tolerance in degrees converted to radians
-        angular_tolerance = radians(1.0)
+        angular_tolerance = radians(rospy.get_param("~angular_tolerance", 1.0)) # degrees to radians
 
         # Initialize the tf listener
         self.tf_listener = tf.TransformListener()
@@ -48,12 +51,10 @@ class OutAndBack():
         rospy.sleep(2)
 
         # Set the odom frame
-        self.odom_frame = '/odom'
-        # self.odom_frame = rospy.get_param('~odom_frame', '/odom')
+        self.odom_frame = rospy.get_param('~odom_frame', '/odom')
 
-        self.base_frame = '/base_link'
-#       self.base_frame = '/base_footprint'
-        # self.base_frame = rospy.get_param('~base_frame', '/base_footprint')
+        # Set the base frame for Robot
+        self.base_frame = rospy.get_param('~base_frame', '/base_link')
 
         # Initialize the position variable as a Point type
         position = Point()

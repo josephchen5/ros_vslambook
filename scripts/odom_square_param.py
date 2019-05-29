@@ -8,7 +8,7 @@ import tf
 from transform_utils import quat_to_angle, normalize_angle
 
 
-class OutAndBack():
+class OdomSquare():
     def __init__(self):
         # initiliaze
         rospy.init_node('out_and_back', anonymous=False)
@@ -28,19 +28,22 @@ class OutAndBack():
     #   設定 out_and_back 參數
 
         # Set the travel distance to 1.0 meters
-        goal_distance = 1.0
-        # Set the forward linear speed to 0.15 meters per second
-        linear_speed = 0.15
+        goal_distance = rospy.get_param("~goal_distance", 1.0)
+
+        # Set the forward linear speed to 0.4 meters per second
+        linear_speed = rospy.get_param("~linear_speed", 0.4)        # meters per second
         print("設定 前進距離為%5.2f meters，速度為%5.2f m/s" % (goal_distance,linear_speed))
 
-        # Set the rotation angle to Pi radians (180 degrees)
-        goal_angle = pi
+        # Set the rotation angle to 180 degrees
+        goal_angle = radians(rospy.get_param("~goal_angle", 90))    # degrees converted to radians
+
+
         # Set the rotation speed in radians per second
-        angular_speed = 0.5
+        angular_speed = rospy.get_param("~angular_speed", 0.8)      # radians per second
         print("設定 旋轉角度為%5.2f radians，旋轉速度為%5.2f rad/s" % (goal_angle,angular_speed))
 
         # Set the angular tolerance in degrees converted to radians
-        angular_tolerance = radians(1.0)
+        angular_tolerance = radians(rospy.get_param("~angular_tolerance", 1.0)) # degrees to radians
 
         # Initialize the tf listener
         self.tf_listener = tf.TransformListener()
@@ -48,24 +51,20 @@ class OutAndBack():
         rospy.sleep(2)
 
         # Set the odom frame
-        self.odom_frame = '/odom'
-        # self.odom_frame = rospy.get_param('~odom_frame', '/odom')
+        self.odom_frame = rospy.get_param('~odom_frame', '/odom')
 
-        self.base_frame = '/base_link'
-#       self.base_frame = '/base_footprint'
-        # self.base_frame = rospy.get_param('~base_frame', '/base_footprint')
+        # Set the base frame for Robot
+        self.base_frame = rospy.get_param('~base_frame', '/base_link')
 
         # Initialize the position variable as a Point type
         position = Point()
 
-        for i in range(2):
+        for i in range(4):
             # Initialize the movement command
             move_cmd = Twist()
             # Set the movement command to forward motion
             move_cmd.linear.x = linear_speed
             (position,rotation) = self.get_odom()
-            #print ("I get position =", position)
-            #print ("I get rotation =", rotation)
 
             x_start = position.x
             y_start = position.y
@@ -98,7 +97,7 @@ class OutAndBack():
             # Track how far we have turned
             turn_angle = 0
             print(" turn_angle = %5.2f degrees " % degrees(turn_angle))
-
+            # Begin the rotation
             while abs(turn_angle + angular_tolerance) < abs(goal_angle) and not rospy.is_shutdown():
                 # Publish the Twist message and sleep 1 cycle
                 self.cmd_vel.publish(move_cmd)
@@ -126,8 +125,6 @@ class OutAndBack():
         except (tf.Exception, tf.ConnectivityException, tf.LookupException):
             rospy.loginfo("TF Exception")
             return
-#       print("I get_odom trans=", trans)
-#       print("I get_odom rot=", rot)
         return (Point(*trans), quat_to_angle(Quaternion(*rot)))
 
     def shutdown(self):
@@ -141,7 +138,7 @@ class OutAndBack():
 
 if __name__ == '__main__':
     try:
-        OutAndBack()
+        OdomSquare()
     except:
-        rospy.loginfo("Out-and-Back node terminated.")
+        rospy.loginfo(" Odom Square node terminated.")
 
