@@ -74,7 +74,7 @@ class MoveBaseSquare():
             goal = MoveBaseGoal()
 
             # Use the map frame to define goal poses
-            goal.target_pose.header.frame_id = 'odom'
+            goal.target_pose.header.frame_id = 'map'
 
             # Set the time stamp to "now"
             goal.target_pose.header.stamp = rospy.Time.now()
