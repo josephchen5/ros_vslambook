@@ -74,7 +74,7 @@ class MoveBaseSquare():
             goal = MoveBaseGoal()
 
             # Use the map frame to define goal poses
-            goal.target_pose.header.frame_id = 'map'
+            goal.target_pose.header.frame_id = 'base_footprint'
 
             # Set the time stamp to "now"
             goal.target_pose.header.stamp = rospy.Time.now()
@@ -126,7 +126,7 @@ class MoveBaseSquare():
         self.markers.color.g = marker_color['g']
         self.markers.color.b = marker_color['b']
         self.markers.color.a = marker_color['a']
-        self.markers.header.frame_id = 'odom'
+        self.markers.header.frame_id = 'map'
         self.markers.header.stamp = rospy.Time.now()
         self.markers.points = list()
 
